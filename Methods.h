@@ -7,9 +7,12 @@
 #include <chrono>
 #include <thread>
 #include <random>
+#include <codecvt>
+#include <dwmapi.h>
 #pragma comment(lib, "kernel32.lib")
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "advapi32.lib")
+#pragma comment(lib, "Dwmapi.lib")
 #define wait(x) this_thread::sleep_for(chrono::milliseconds(x))
 #define pause system("pause >NUL")
 
@@ -18,6 +21,12 @@ using namespace std;
 const LPCSTR Title = "PC2Normal v0.1";
 const LPCSTR ER = "\033[31m[ER]\033[0m ";
 const LPCSTR OK = "\033[32m[OK]\033[0m ";
+
+static const wchar_t* ToConstWchar_t(string str) {
+    wstring wstr = wstring_convert<codecvt_utf8<wchar_t>>().from_bytes(str);
+    const wchar_t* result = wstr.c_str();
+    return result;
+}
 
 static int rand(int min, int max) {
     random_device rd;
@@ -60,10 +69,23 @@ static bool SetWallpaperUsingPowerShell(const wchar_t* wallpaperPath) {
     return system(narrowCommand.c_str()) == 0;
 }
 
+static bool SetWallpaperUsingGDI(const wchar_t* wallpaperPath) {
+    HBITMAP hBitmap = (HBITMAP)LoadImageW(NULL, wallpaperPath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    if (!hBitmap) return false;
+    bool result = SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (void*)wallpaperPath, SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
+    DeleteObject(hBitmap);
+    return result;
+}
+
+static bool SetWallpaperUsingDWM(const wchar_t* wallpaperPath) {
+    HRESULT hr = DwmSetWindowAttribute(GetConsoleWindow(), DWMWA_USE_IMMERSIVE_DARK_MODE, &wallpaperPath, sizeof(wallpaperPath));
+    return SUCCEEDED(hr);
+}
+
 static void StartSetup() {
     setlocale(LC_ALL, "rus");
     SetConsoleTitleA(Title);
-    system("mode con cols=70 lines=18");
+    system("mode con cols=70 lines=20");
     HWND consoleWindow = GetConsoleWindow();
     RECT r;
     GetWindowRect(consoleWindow, &r);

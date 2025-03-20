@@ -16,12 +16,29 @@ int main() {
         cerr << ER << "Не удалось применить настройки темы." << endl;
     else
         cout << OK << "Тёмная тема успешно применена." << endl;
+    cout << endl << "\033[33m[Выбор обоев для установки]\033[0m" << endl;
+    cout << "\033[36m[1]\033[0m Стандартные обои Windows 11\n\033[36m[2]\033[0m Свои обои" << endl;
+    int c = 0;
+    while (c != 49 && c != 50) c = _getch();
     cout << endl << "\033[33m[Установка новых обоев]\033[0m" << endl;
     wait(500);
     const wchar_t* wallpaperToSet = nullptr;
-    if (FileExists(wallpaper4KPath)) wallpaperToSet = wallpaper4KPath;
-    else if (FileExists(wallpaperPath)) wallpaperToSet = wallpaperPath;
-    else cerr << "\033[31mОбои отсутствуют.\033[0m" << endl;
+    if (c == 50) {
+        string path;
+        cout << endl << "Введите путь к файлу: ";
+        getline(cin, path);
+        const wchar_t* wcharPath = ToConstWchar_t(path);
+        if (FileExists(wcharPath)) wallpaperToSet = wcharPath;
+        else {
+            cerr << "\033[31mОбои отсутствуют.\033[0m" << endl;
+            c = 49;
+        }
+    }
+    if (c == 49) {
+        if (FileExists(wallpaper4KPath)) wallpaperToSet = wallpaper4KPath;
+        else if (FileExists(wallpaperPath)) wallpaperToSet = wallpaperPath;
+        else cerr << "\033[31mОбои отсутствуют.\033[0m" << endl;
+    }
     if (wallpaperToSet != nullptr) {
         if (SetWallpaperUsingSPI(wallpaperToSet))
             cout << OK << "Обои установлены с помощью SPI." << endl;
@@ -35,10 +52,18 @@ int main() {
             cout << OK << "Обои установлены через PowerShell." << endl;
         else
             cerr << ER << "Не удалось установить обои через PowerShell." << endl;
+        if (SetWallpaperUsingGDI(wallpaperToSet))
+            cout << OK << "Обои установлены через GDI." << endl;
+        else
+            cerr << ER << "Не удалось установить обои через GDI." << endl;
+        if (SetWallpaperUsingDWM(wallpaperToSet))
+            cout << OK << "Обои установлены через DWM." << endl;
+        else
+            cerr << ER << "Не удалось установить обои через DWM." << endl;
         cout << endl << "\033[1;31m[Внимание]\033[0m Если обои не изменились сейчас или после\nперезагрузки, к сожалению, на этом ПК не получится\nсменить обои." << endl;
     }
     cout << endl << "\033[33m[Нажмите любую клавишу для перезагрузки ПК...]\033[0m";
     pause;
-    //system("shutdown /r /t 0");
+    system("shutdown /r /t 0");
     return 0;
 }
