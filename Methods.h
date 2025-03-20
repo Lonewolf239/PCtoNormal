@@ -18,7 +18,7 @@
 
 using namespace std;
 
-const LPCSTR Title = "PC2Normal v0.1";
+const LPCSTR Title = "PC2Normal v0.2";
 const LPCSTR ER = "\033[31m[ER]\033[0m ";
 const LPCSTR OK = "\033[32m[OK]\033[0m ";
 
@@ -85,7 +85,7 @@ static bool SetWallpaperUsingDWM(const wchar_t* wallpaperPath) {
 static void StartSetup() {
     setlocale(LC_ALL, "rus");
     SetConsoleTitleA(Title);
-    system("mode con cols=70 lines=20");
+    system("mode con cols=70 lines=24");
     HWND consoleWindow = GetConsoleWindow();
     RECT r;
     GetWindowRect(consoleWindow, &r);
