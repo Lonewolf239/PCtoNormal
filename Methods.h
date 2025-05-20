@@ -18,7 +18,7 @@
 
 using namespace std;
 
-const LPCSTR Title = "PC2Normal v0.2";
+const LPCSTR Title = "PC2Normal v0.3";
 const LPCSTR ER = "\033[31m[ER]\033[0m ";
 const LPCSTR OK = "\033[32m[OK]\033[0m ";
 
