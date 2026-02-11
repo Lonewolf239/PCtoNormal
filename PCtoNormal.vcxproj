@@ -130,7 +130,7 @@
     <ClCompile Include="PCtoNormal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Methods.h" />
+    <ClInclude Include="Headers.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
