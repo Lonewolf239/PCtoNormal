@@ -59,7 +59,7 @@ int main() {
         cout << endl << "\033[1;31m[Внимание]\033[0m Если обои не изменились сейчас или после\nперезагрузки, к сожалению, на этом ПК не получится\nсменить обои." << endl;
     }
     cout << endl << "\033[33m[Установка настроек Visual Studio]\033[0m" << endl;
-    string vsCommand = "\"" + VSPath + "\" /ResetSettings \"" + GetExeDir() + "\\normal.vssettings\"";
+	string vsCommand = "\"\"" + VSPath + "\" /ResetSettings \"" + GetExeDir() + "\\normal.vssettings\"\"";
     if (system(vsCommand.c_str()) != 0)  cerr << ER << "Не удалось применить настройки Visual Studio." << endl;
     else cout << OK << "Настройки Visual Studio успешно применены." << endl;
     string finalMessage = "Нажмите любую клавишу для перезагрузки ПК...";

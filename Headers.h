@@ -22,7 +22,7 @@ using namespace std;
 const LPCSTR Title = "PC2Normal v0.3";
 const LPCSTR ER = "\033[31m[ER]\033[0m ";
 const LPCSTR OK = "\033[32m[OK]\033[0m ";
-const string VSPath = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe";
+const string VSPath = R"(C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe)";
 
 static const wchar_t* ToConstWchar_t(string str);
 
