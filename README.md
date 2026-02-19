@@ -16,7 +16,7 @@ Designed for use on university and corporate computers where standard configurat
 - Force the Windows dark theme (via registry and system calls)
 - Set wallpaper without Group Policy
 - Quick Visual Studio setup
-- Minimal dependencies—WinAPI only
+- Minimal dependencies — WinAPI only
 - Fast execution and small executable size
 
 ## Requirements
