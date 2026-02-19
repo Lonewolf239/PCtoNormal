@@ -31,4 +31,4 @@ The utility runs in the context of the current user and does not require adminis
 
 ## License
 
-MIT License—use as you wish.
+MIT License — use as you wish.
