@@ -130,6 +130,7 @@
     <ClCompile Include="PCtoNormal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="API.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
